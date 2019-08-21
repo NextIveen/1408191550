@@ -1,0 +1,7 @@
+*
+!./containers/app/app-install.sh
+!./containers/app/.bash_history
+!./containers/app/php-conf.d/xdebug.ini
+!./containers/nginx/nginx-startup.sh
+!./containers/nginx/ssl/ssl-cert.crt
+!./containers/nginx/ssl/ssl-cert.key

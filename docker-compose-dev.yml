@@ -1,0 +1,35 @@
+version: '3'
+services:
+  app:
+    container_name: test
+    image: vaddemgen/laravel:latest
+    volumes:
+    - .:/var/www
+    - ./docker/containers/app/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
+    environment:
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: test
+      DB_USERNAME: postgres
+      DB_PASSWORD: test
+    links:
+    - postgres
+  postgres:
+      container_name: test-postgres
+      image: postgres:11-alpine
+      environment:
+        POSTGRES_DB: test
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: test
+  nginx:
+      container_name: test-nginx
+      build:
+        context: .
+        dockerfile: docker/containers/nginx/Dockerfile
+      volumes:
+      - ./public:/var/www/public
+      ports:
+      - 7002:80
+      links:
+      - app
